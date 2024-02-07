@@ -39,7 +39,7 @@ export const Header = () => {
           </Box>
         </ImageBox>
         <Search />
-        <Box sx={{ marginLeft: 10 }}>
+        <Box sx={{ marginLeft: 7 }}>
           <CustomButtons />
         </Box>
       </Toolbar>

@@ -15,6 +15,7 @@ const InputBox = styled(InputBase)`
 `;
 const SearchIconWrapper = styled(Box)`
   color: blue;
+  display: flex;
 `;
 export const Search = () => {
   return (
