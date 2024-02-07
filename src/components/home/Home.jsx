@@ -17,8 +17,8 @@ export const Home = () => {
     background: #f2f2f2;
   `;
   const dispatch = useDispatch();
-  const products = useSelector((state) => state);
-  console.log("popop", products.getProducts.products.products);
+  const products = useSelector((state) => state.getProducts);
+  console.log("popop", products.products);
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -27,40 +27,40 @@ export const Home = () => {
       <Navbar />
       <ComponentContainer>
         <Banner />
-        {products.getProducts.products.products && (
+        {products?.products && (
           <>
             <MidSlide
-              product={products.getProducts.products.products}
+              product={products.products.products}
               title={"deal of the day"}
               timer={true}
             ></MidSlide>
             <Midsection />
             <Slides
-              product={products.getProducts.products.products}
+              product={products.products.products}
               title={"Discount for you"}
             ></Slides>
             <Slides
-              product={products.getProducts.products.products}
+              product={products.products.products}
               title={"suggesting items for you"}
             ></Slides>
             <Slides
-              product={products.getProducts.products.products}
+              product={products.products.products}
               title={"Top selection"}
             ></Slides>
             <Slides
-              product={products.getProducts.products.products}
+              product={products.products.products}
               title="recomended items"
             ></Slides>
             <Slides
-              product={products.getProducts.products.products}
+              product={products.products.products}
               title={"Top Deals On TVs & Appliances"}
             ></Slides>
             <Slides
-              product={products.getProducts.products.products}
+              product={products.products.products}
               title="trending offers"
             ></Slides>
             <Slides
-              product={products.getProducts.products.products}
+              product={products.products.products}
               title={"seasons top picks"}
             ></Slides>
           </>

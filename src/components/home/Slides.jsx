@@ -4,6 +4,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Countdown from "react-countdown";
+import { Link } from "react-router-dom";
 export const Slides = ({ product, title }) => {
   console.log("first", product);
   const Component = styled(Box)`
@@ -101,19 +102,25 @@ export const Slides = ({ product, title }) => {
           sx={{ marginTop: 3 }}
         >
           {product?.map((product) => (
-            <Box textAlign={"center"} sx={{ padding: "25px 15px" }}>
-              <img
-                src={product?.url}
-                style={{ width: "auto", height: "150px" }}
-              ></img>
-              <Text style={{ fontWeight: 600, color: "#212121" }}>
-                {product?.title?.shortTitle}
-              </Text>
-              <Text style={{ color: "green" }}>{product.discount}</Text>
-              <Text style={{ color: "#212121", opacity: 0.6 }}>
-                {product.tagline}
-              </Text>
-            </Box>
+            <Link
+              to={`/product/${product.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <Box textAlign={"center"} sx={{ padding: "25px 15px" }}>
+                <img
+                  src={product?.url}
+                  alt="a"
+                  style={{ width: "auto", height: "150px" }}
+                ></img>
+                <Text style={{ fontWeight: 600, color: "#212121" }}>
+                  {product?.title?.shortTitle}
+                </Text>
+                <Text style={{ color: "green" }}>{product.discount}</Text>
+                <Text style={{ color: "#212121", opacity: 0.6 }}>
+                  {product.tagline}
+                </Text>
+              </Box>
+            </Link>
           ))}
         </Carousel>
       </Component>

@@ -14,7 +14,7 @@ export const Navbar = () => {
     padding: 12px 8px;
   `;
   return (
-    <Component>
+    <Component sx={{ display: { xs: "none", md: "flex" } }}>
       {navData?.map((data) => {
         return (
           <Container>

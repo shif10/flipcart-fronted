@@ -5,3 +5,7 @@ export const imageURL = [
   "https://rukminim1.flixcart.com/flap/960/960/image/084789479074d2b2.jpg",
   "https://rukminim1.flixcart.com/flap/960/960/image/1ce0c4c1fb501b45.jpg?q=50",
 ];
+
+export const Get_product_detail_request = "getProductRequest";
+export const Get_product_detail_success = "getProductSuccess";
+export const Get_product_detail_fail = "getProductFail";
