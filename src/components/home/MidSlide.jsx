@@ -1,34 +1,49 @@
-import { Box, Grid, Slide } from "@mui/material";
-import React from "react";
-import { Slides } from "./Slides";
 
-export const MidSlide = ({ product, title, timer }) => {
-  const adURL =
-    "https://rukminim1.flixcart.com/flap/464/708/image/633789f7def60050.jpg?q=70";
-  return (
-    <Box sx={{ display: "flex" }}>
-      <Grid container>
-        <Grid item xs={12} md={10}>
-          {" "}
-          <Slides product={product} title={title} timer={timer}></Slides>
-        </Grid>
-        <Grid item xs={2} sx={{ display: { xs: "none", md: "block" } }}>
-          {" "}
-          <Box
-            sx={{
-              background: "white",
-              padding: "5px",
+import { Box, styled } from '@mui/material';
 
-              marginLeft: "10px",
-              marginTop: "10px",
-              textAlign: "center",
-            }}
-          >
-            <img src={adURL} alt="add" width={217}></img>
-          </Box>
-        </Grid>
-      </Grid>
-      <Box sx={{ width: "80%" }}></Box>
-    </Box>
-  );
-};
+import Slide from './Slide';
+
+const Component = styled(Box)`
+    display: flex;
+`
+
+const LeftComponent = styled(Box)(({ theme}) => ({
+    width: '83%',
+    [theme.breakpoints.down('md')]: {
+        width: '100%'
+    }
+}))
+
+const RightComponent = styled(Box)(({ theme}) => ({
+    marginTop: 10,
+    background: '#FFFFFF',
+    width: '17%',
+    marginLeft: 10,
+    padding: 5,
+    textAlign: 'center',
+    [theme.breakpoints.down('md')]: {
+        display: 'none'
+    }
+}));
+
+const MidSlide = ({ products }) => {
+    const adURL = 'https://rukminim1.flixcart.com/flap/464/708/image/633789f7def60050.jpg?q=70';
+
+    return (
+        <Component>
+            <LeftComponent>
+                <Slide 
+                    data={products} 
+                    title='Deals of the Day'
+                    timer={true} 
+                    multi={true} 
+                />
+            </LeftComponent>
+            <RightComponent>
+                <img src={adURL} style={{width: 217}}/>
+            </RightComponent>
+        </Component>
+    )
+}
+
+export default MidSlide;

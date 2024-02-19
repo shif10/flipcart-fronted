@@ -1,68 +1,94 @@
-import { Box, Button, Typography } from "@mui/material";
-import React, { useContext, useState } from "react";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import styled from "@emotion/styled";
-import { LoginPage } from "../login/LoginPage";
-import { DataContext } from "../../context/Dataprovoider";
-import { Profile } from "../profile/Profile";
+import React, { useState, useContext } from "react";
 
-export const CustomButtons = () => {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = useState();
-  const { account } = useContext(DataContext);
-  const handleClickOpen = () => {
-    console.log("helo");
+import { Box, Typography, Badge, Button, styled } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
+
+import { Link } from "react-router-dom";
+import { LoginContext } from "../../context/ContextProvider";
+import { useSelector } from "react-redux";
+
+import Profile from "./Profile";
+import LoginDialog from "../Login/LoginDialog";
+
+const Container = styled(Link)(({ theme }) => ({
+  display: "flex",
+  [theme.breakpoints.down("sm")]: {
+    display: "block",
+  },
+}));
+
+const Wrapper = styled(Box)(({ theme }) => ({
+  margin: "0 3% 0 auto",
+  display: "flex",
+  "& > *": {
+    marginRight: "40px !important",
+    textDecoration: "none",
+    color: "#FFFFFF",
+    fontSize: 12,
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      color: "#2874f0",
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
+      marginTop: 10,
+    },
+  },
+  [theme.breakpoints.down("sm")]: {
+    display: "block",
+  },
+}));
+
+const LoginButton = styled(Button)(({ theme }) => ({
+  color: "#2874f0",
+  background: "#FFFFFF",
+  textTransform: "none",
+  fontWeight: 600,
+  borderRadius: 2,
+  padding: "5px 40px",
+  height: 32,
+  boxShadow: "none",
+  marginLeft: "20px",
+  [theme.breakpoints.down("sm")]: {
+    background: "#2874f0",
+    color: "#FFFFFF",
+  },
+}));
+
+const CustomButtons = () => {
+  const [open, setOpen] = useState(false);
+  const { account, setAccount } = useContext(LoginContext);
+  console.log(account, "acc");
+  const cartDetails = useSelector((state) => state.cart);
+  const { cartItems } = cartDetails;
+
+  const openDialog = () => {
     setOpen(true);
   };
-
-  const handleClose = (value) => {
-    setOpen(false);
-    setSelectedValue(value);
-  };
-  const Wrapper = styled(Box)`
-    display: flex;
-    margin: 0 0 0 auto;
-    & > button,
-    & > p,
-    & > div {
-      margin-right: 40px;
-      font-size: 16px;
-      align-items: center;
-    }
-    & > p {
-      margin-top: 3.5px;
-    }
-  `;
-  const Container = styled(Box)`
-    display: flex;
-  `;
-  const LoadingButton = styled(Button)`
-    color: #2874f0;
-    background: white;
-    text-align: center;
-    text-transform: none;
-    padding: 5px 40px;
-    border-radius: 2px;
-    box-shadow: none;
-    font-weight: 630;
-    // height: 20px;
-  `;
 
   return (
     <Wrapper>
       {account ? (
-        <Profile account={account} />
+        <Profile account={account} setAccount={setAccount} />
       ) : (
-        <LoadingButton onClick={() => handleClickOpen()}>LOGIN</LoadingButton>
+        <LoginButton variant="contained" onClick={() => openDialog()}>
+          Login
+        </LoginButton>
       )}
+      <Typography style={{ marginTop: 3, width: 135 }}>
+        Become a Seller
+      </Typography>
+      <Typography style={{ marginTop: 3 }}>More</Typography>
 
-      <Typography>Become a seller</Typography>
-      <Typography>More</Typography>
-      <Container>
-        <ShoppingCartIcon />
-        <Typography>Cart</Typography>
+      <Container to="/cart">
+        <Badge badgeContent={cartItems?.length} color="secondary">
+          <ShoppingCart />
+        </Badge>
+        <Typography style={{ marginLeft: 10 }}>Cart</Typography>
       </Container>
-      <LoginPage open={open} handleClose={handleClose} />
+      <LoginDialog open={open} setOpen={setOpen} setAccount={setAccount} />
     </Wrapper>
   );
 };
+
+export default CustomButtons;
