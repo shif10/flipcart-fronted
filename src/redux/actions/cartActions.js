@@ -4,7 +4,9 @@ import axios from "axios";
 export const addToCart = (id, quantity) => async (dispatch) => {
   try {
     console.log("add to cart,id", id);
-    const { data } = await axios.get(`http://localhost:5000/product/${id}`);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND}product/${id}`
+    );
 
     dispatch({ type: actionTypes.ADD_TO_CART, payload: { ...data, quantity } });
   } catch (error) {
