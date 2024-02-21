@@ -26,13 +26,14 @@ const Profile = ({ account, setAccount }) => {
   };
 
   const logout = () => {
-    setAccount("");
+    localStorage.clear();
   };
+  const userName = localStorage.getItem("userName");
 
   return (
     <>
       <Box onClick={handleClick}>
-        <Typography style={{ marginTop: 2 }}>{account}</Typography>
+        <Typography style={{ marginTop: 2 }}>{userName}</Typography>
       </Box>
       <Component anchorEl={open} open={Boolean(open)} onClose={handleClose}>
         <MenuItem

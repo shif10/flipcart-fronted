@@ -59,17 +59,16 @@ const CustomButtons = () => {
   const [open, setOpen] = useState(false);
   const { account, setAccount } = useContext(LoginContext);
   console.log(account, "acc");
-  const cartDetails = useSelector((state) => state.cart);
-  const { cartItems } = cartDetails;
-
+  const storedCartItems = localStorage.getItem("cart");
+  const cartItems = storedCartItems && JSON.parse(storedCartItems);
   const openDialog = () => {
     setOpen(true);
   };
-
+  const flipCartUserToken = localStorage.getItem("flipCartUserToken");
   return (
     <Wrapper>
-      {account ? (
-        <Profile account={account} setAccount={setAccount} />
+      {flipCartUserToken ? (
+        <Profile />
       ) : (
         <LoginButton variant="contained" onClick={() => openDialog()}>
           Login

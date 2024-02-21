@@ -4,7 +4,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Countdown from "react-countdown";
 import { Link } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
+
 
 const responsive = {
   desktop: {
@@ -81,7 +81,7 @@ const MultiSlide = ({ data, timer, title }) => {
     );
   };
 
-  return data ? (
+  return (
     <Component>
       <Deal>
         <DealText>{title}</DealText>
@@ -129,8 +129,6 @@ const MultiSlide = ({ data, timer, title }) => {
         </Carousel>
       )}
     </Component>
-  ) : (
-    <CircularProgress />
   );
 };
 

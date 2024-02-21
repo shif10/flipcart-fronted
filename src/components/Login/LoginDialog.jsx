@@ -133,9 +133,15 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
 
   const loginUser = async () => {
     let response = await authenticateLogin(login);
+    localStorage.setItem("flipCartUserToken", response?.data?.token);
+    console.log(response, "response");
     console.log(response, "res");
     if (!response) showError(true);
     else {
+      if (localStorage.getItem("flipCartUserToken")) {
+        localStorage.setItem("userName", response.data.user.userName);
+      }
+
       showError(false);
       handleClose();
       setAccount(response.data.user.userName);

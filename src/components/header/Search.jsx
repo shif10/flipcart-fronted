@@ -65,9 +65,11 @@ const Search = () => {
       </SearchIconWrapper>
       {text && (
         <ListWrapper hidden={open}>
-          {products
+          {products.data
             ?.filter((product) =>
-              product.title.longTitle.toLowerCase().includes(text.toLowerCase())
+              product.data.title.longTitle
+                .toLowerCase()
+                .includes(text.toLowerCase())
             )
             .map((product) => (
               <ListItem>
@@ -76,7 +78,7 @@ const Search = () => {
                   style={{ textDecoration: "none", color: "inherit" }}
                   onClick={() => setOpen(true)}
                 >
-                  {product.title.longTitle}
+                  {product.data.title.longTitle}
                 </Link>
               </ListItem>
             ))}
