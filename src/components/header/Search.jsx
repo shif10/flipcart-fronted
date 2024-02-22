@@ -65,23 +65,24 @@ const Search = () => {
       </SearchIconWrapper>
       {text && (
         <ListWrapper hidden={open}>
-          {products.data
-            ?.filter((product) =>
-              product.data.title.longTitle
-                .toLowerCase()
-                .includes(text.toLowerCase())
-            )
-            .map((product) => (
-              <ListItem>
-                <Link
-                  to={`/product/${product.id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  onClick={() => setOpen(true)}
-                >
-                  {product.data.title.longTitle}
-                </Link>
-              </ListItem>
-            ))}
+          {products &&
+            products.products
+              ?.filter((product) =>
+                product.title.longTitle
+                  .toLowerCase()
+                  .includes(text.toLowerCase())
+              )
+              .map((product) => (
+                <ListItem>
+                  <Link
+                    to={`/product/${product.id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    onClick={() => setOpen(true)}
+                  >
+                    {product.title.longTitle}
+                  </Link>
+                </ListItem>
+              ))}
         </ListWrapper>
       )}
     </SearchContainer>
