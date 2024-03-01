@@ -40,10 +40,9 @@ const Remove = styled(Button)`
 `;
 
 const CartItem = ({ item, removeItemFromCart }) => {
-  console.log("item,", item);
   const fassured =
     "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png";
-  console.log(item, "item");
+
   return (
     <Component>
       <LeftComponent>

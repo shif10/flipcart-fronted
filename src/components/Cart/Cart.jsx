@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Box, Typography, Button, Grid, styled } from "@mui/material";
 import { useParams } from "react-router-dom";
@@ -13,6 +13,7 @@ import CartItem from "./CartItem";
 import { post } from "../../utils/paytm";
 import { payUsingPaytm } from "../../service/api";
 import LoginDialog from "../Login/LoginDialog";
+import { LoginContext } from "../../context/ContextProvider";
 
 const Component = styled(Grid)(({ theme }) => ({
   padding: "30px 135px",
@@ -52,25 +53,32 @@ const StyledButton = styled(Button)`
 `;
 
 const Cart = () => {
-  const [storedCartItems, setstoredCartItems] = useState();
+  const [storedCartItems, setstoredCartItems] = useState(
+    localStorage.getItem("cart")
+  );
+  const { account, setAccount } = useContext(LoginContext);
   // const cartDetails = useSelector(state => state.cart);
   // const { cartItems } = cartDetails;
   const [login, setLogin] = useState(null);
   const loginToken = localStorage.getItem("flipCartUserToken");
   const { id } = useParams();
+
   useEffect(() => {
     setstoredCartItems(localStorage.getItem("cart"));
   }, []);
-
-  const cartItems = storedCartItems && JSON.parse(storedCartItems);
-  console.log("cart ", cartItems);
-
+  const [cartItems, setCartItems] = useState(
+    storedCartItems && JSON.parse(storedCartItems)
+  );
+  console.log(storedCartItems, "stored");
   //   useEffect(() => {
   //     if (cartItems && id !== cartItems.id) dispatch(addToCart(id));
   //   }, [dispatch, cartItems, id]);
 
   const removeItemFromCart = (id) => {
-    // dispatch(removeFromCart(id));
+    const updatedCartItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedCartItems);
+    setAccount("");
+    localStorage.setItem("cart", JSON.stringify(updatedCartItems));
   };
 
   const buyNow = async () => {

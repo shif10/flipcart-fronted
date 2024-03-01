@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { Box, Typography, Badge, Button, styled } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
@@ -58,9 +58,23 @@ const LoginButton = styled(Button)(({ theme }) => ({
 const CustomButtons = () => {
   const [open, setOpen] = useState(false);
   const { account, setAccount } = useContext(LoginContext);
-  console.log(account, "acc");
-  const storedCartItems = localStorage.getItem("cart");
-  const cartItems = storedCartItems && JSON.parse(storedCartItems);
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const fetchCartItems = () => {
+      try {
+        const storedCartItems = localStorage.getItem("cart");
+        const parsedCartItems = storedCartItems && JSON.parse(storedCartItems);
+
+        setCartItems(parsedCartItems);
+      } catch (error) {
+        console.error("Error fetching cart items from local storage:", error);
+      }
+    };
+
+    fetchCartItems();
+  }, [account]);
+
   const openDialog = () => {
     setOpen(true);
   };
